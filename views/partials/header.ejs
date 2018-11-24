@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Songs of Assyria</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/header.css">
+    <link rel="StyleSheet" href="../../css/assyrian.css" media="all">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    
+    <!-- Start of Navbar -->
+    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+        
+      <!-- Mobile Compatability -->
+	    <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#dropdown">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="dropdown">
+			  <ul class="nav navbar-nav">
+          <% if(!currentUser){ %>
+               <li><a href= "#" data-toggle="modal" data-target="#loginPopup">Login</a></li>
+               <li><a href= "#" data-toggle="modal" data-target="#signupPopup">Sign Up</a></li>
+          <% } else { %>
+               <li><a href="/new">Add a Song</a></li>
+               <li><a href="/logout">Logout</a></li>
+          <% } %>
+			  </ul>
+		  </div>
+		</div>
+	</nav>
+	
+<!-- Pop up Login -->
+  <div id="loginPopup" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button id = "loginPopupX" type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Login to Songs of Assyria</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div id = "loginErrMsg" class = "text-center hidden errMsgs">
+              <p>Username or Password is Incorrect!</p>
+            </div>
+            <div class = "forms">
+            <form action="/login" method="post">
+              <div class="form-group" id = loginUsername>
+                <input class="form-control" type="text" name="username" placeholder="Username">
+              </div>
+              <div class="form-group" id = "loginPassword">
+                <input class="form-control" type="password" name="password" placeholder="Password">
+                <a href = "#" data-toggle= "modal" data-target="#forgotPasswordPopup" data-dismiss="modal" data-target = "#loginPopup">Forgot Password?</a>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-lg btn-primary btn-block">Login</button>
+              </div>
+            </div>
+            </form>
+            <h6 class="text-center"><span>OR LOGIN WITH</span></h6>
+            <div class = "text-center">
+              <a href="/facebook" class="fa fa-facebook btn-floating"></a>
+              <a href="/auth/google" class="fa fa-google btn-floating"></a>
+              <a href="#" class="fa fa-twitter btn-floating"></a>
+              <a href="/instagram" class="fa fa-instagram btn-floating"></a>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href = "#" data-toggle="modal" data-target="#signupPopup" data-dismiss="modal" data-target = "#loginPopup">Sign Up For An Account</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Pop up Sign Up -->
+  <div id="signupPopup" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Sign up for Songs of Assyria</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div id = "signupErrMsg" class = "text-center hidden errMsgs">
+              <% if (typeof signupErrMsg != "undefined") { %>
+                <p><%= signupErrMsg %></p>
+              <% } %>
+            </div>
+            <div class = "forms">
+            <form action="/register" method="post">
+              <div class="form-group" id = "signupEmail">
+                <input class="form-control" type="text" name="email" placeholder="Email" id = "emailBox">
+              </div>
+              <div class="form-group" id = "signupUsername">
+                <input class="form-control" type="text" name="username" placeholder="Username" id = "usernameBox">
+              </div>
+              <div class="form-group" id = "signupPassword">
+                <input class="form-control" type="password" name="password" placeholder="Password">
+              </div>
+              <div class="form-group">
+                <button class="btn btn-lg btn-primary btn-block">Sign Up</button>
+              </div>
+            </div>
+            </form>
+            <h6 class="text-center"><span>OR SIGN UP WITH</span></h6>
+            <div class = "text-center">
+              <a href="/facebook" class="fa fa-facebook btn-floating"></a>
+              <a href="/auth/google" class="fa fa-google btn-floating"></a>
+              <a href="#" class="fa fa-twitter btn-floating"></a>
+              <a href="/instagram" class="fa fa-instagram btn-floating"></a>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href = "#" data-toggle="modal" data-target="#loginPopup" data-dismiss="modal" data-target = "#signupPopup">Login to an Existing Account</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pop up Forgot Password -->
+  <div id="forgotPasswordPopup" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Retrieve Lost Password</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div id = "resetErrMsg" class = "text-center hidden errMsgs">
+              <% if (typeof resetErrMsg != "undefined") { %>
+                <p><%= resetErrMsg %></p>
+              <% } %>
+            </div>
+            <p class = "text-center">An email will be sent to the provided address so that the password can be reset</p>
+            <div class = "forms">
+            <form action="/reset" method="post">
+              <div class="form-group" id = "resetEmail">
+                <input class="form-control" type="text" name="email" placeholder="Email">
+              </div>
+              <div class="form-group">
+                <button class="btn btn-lg btn-primary btn-block">Retrieve Password</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+          <a href = "#" data-toggle="modal" data-target="#loginPopup" data-dismiss="modal" data-target = "#forgotPasswordPopup">Login to an Existing Account</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Bad Login, Show error messages -->
+  <% if (typeof badLogin != "undefined") { %>
+    <script> 
+      document.addEventListener("DOMContentLoaded", function(event) {
+        loginFail();
+        badLogin = undefined;
+      }); 
+    </script>
+  <% } %>
+  
+  <% if (typeof badRegister != "undefined" && sendBack != "undefined") { %>
+    <script> 
+      document.addEventListener("DOMContentLoaded", function(event) {
+        signupFail("<%=sendBack.email%>", "<%=sendBack.username%>", <%=redBox.email%>, <%=redBox.username%>, <%=redBox.password%>);
+        badRegister = undefined;
+      }); 
+    </script>
+  <% } %>
+  
+  <% if (typeof badReset != "undefined") { %>
+    <script> 
+      document.addEventListener("DOMContentLoaded", function(event) {
+        resetFail();
+        badReset = undefined;
+      }); 
+    </script>
+  <% } %>
+  
+      
+	<!-- Error Flashes -->
+	 <div class="container">
+       <% if(error && error.length > 0) { %>
+         <div class="alert alert-danger"><p><%=error %></p></div>
+       <% } %>
+       
+       <% if(success && success.length > 0) { %>
+         <div class="alert alert-success"><p><%= success %></p></div>
+       <% } %>
+  </div>
+  
+  <script src="../../js/header.js"></script>
+  <script src="../../js/index.js"></script>

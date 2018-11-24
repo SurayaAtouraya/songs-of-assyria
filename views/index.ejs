@@ -1,0 +1,76 @@
+<% include partials/header.ejs                                                  %>
+
+<!-- Needed to prevent error -->
+<% if (typeof resetHash == "undefined") {%>
+<% resetHash = "" %>
+<% } %>
+
+    <!-- User has requested a password reset, display reset modal -->
+  <% if (typeof resetPassword != "undefined") { %>
+    <script> 
+      document.addEventListener("DOMContentLoaded", function(event) {
+        resetPassword();
+        resetPassword != "undefined"
+      }); 
+    </script>
+  <% } %>
+  
+   <!-- Pop up Reset Password -->
+  <div id="resetPasswordPopup" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-toggle = "modal" data-target = "#confirmResetPasswordModalExit" data-dismiss = "modal" data-target="#resetPasswordPopup" >&times;</button>
+          <h4 class="modal-title">Retrieve Lost Password</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <p class = "text-center">Please Enter a New Password.</p>
+            <div id = "newPasswordErrMsg" class = "text-center hidden errMsgs">
+              <p>New Password must be atleast 4 characters!</p>
+            </div>
+            <div class = "forms">
+            <form action="/verify/reset/<%= resetHash %>" method="post">
+              <div class="form-group" id = "resetPassword">
+                <input class="form-control" type="password" name="password" placeholder="New Password">
+              </div>
+              <div class="form-group">
+                <button class="btn btn-lg btn-primary btn-block">Reset Password</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+   <!-- Confirm Exit Reset Password Modal-->
+  <div id="confirmResetPasswordModalExit" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row">
+            <p class = "text-center">Are you sure you would like to cancel password reset?</p>
+              <button id = "cancel" class="btn btn-lg btn-primary btn-block" onclick = "cancelReset()">Yes</button>
+              <button id = "noCancel" class="btn btn-lg btn-primary btn-block" data-toggle = "modal" data-target = "#resetPasswordPopup" data-dismiss = "modal" data-target="#confirmResetPasswordModalExit">No</button>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Bad Password set, Show error message -->
+  <% if (typeof invalidPassword != "undefined") { %>
+    <script> 
+      document.addEventListener("DOMContentLoaded", function(event) {
+        invalidPassword();
+        invalidPassword = undefined;
+      }); 
+    </script>
+  <% } %>
+  
+<% include partials/footer.ejs                                                  %>

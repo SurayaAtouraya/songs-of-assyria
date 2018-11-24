@@ -1,0 +1,10 @@
+@font-face {
+	font-family: 'adiabene';
+	src: local('East Syriac Adiabene'),
+        url('fonts/syrcomadiabene.woff') format('woff');
+}
+
+.assyrian {
+    font-family: adiabene;
+    font-size: 300%;
+}

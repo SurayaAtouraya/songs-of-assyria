@@ -1,0 +1,11 @@
+<% include partials/header.ejs %>
+<% if (currentUser) {                                                           %>
+        <h1>Signed in as <%= currentUser.username %></h1>
+<%        if (currentUser.verified === false) {                                          %>
+            <h1>NOT VERIFIED!</h1>
+<%        } else if (currentUser.verified === true)   {                                  %>
+            <h1>VERIFIED!</h1>
+<%          }                                                                   %>
+<%          }                                                                   %>
+<h1>Profile Page</h1>
+<% include partials/footer.ejs %>
