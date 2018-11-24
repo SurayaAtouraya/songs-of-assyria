@@ -18,3 +18,5 @@ Once a proper sign up is completed, user will be sent a confirmation email to ve
 ## Signing up (Other Methods)
 
 Signing up can also be done through OAuth 2 through Google, Twitter, Instagram and Facebook: [1](https://i.imgur.com/DBdX7p7.png) [2](https://i.imgur.com/qNlBzBP.png)
+
+## More features have been implemented
